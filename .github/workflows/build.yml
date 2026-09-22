@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+      - Commit-0-GitHub-Actions
   workflow_dispatch:
 
 jobs:
@@ -15,24 +16,26 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Setup NuGet
-        uses: NuGet/setup-nuget@v2
-
-      - name: Restore NuGet packages
-        run: nuget restore .\v2rayN.sln
-
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
 
+      - name: Restore NuGet packages
+        run: nuget restore .\v2rayN\v2rayN.sln
+
       - name: Build Release
-        run: msbuild .\v2rayN.sln /p:Configuration=Release /p:Platform="Any CPU" /m
+        run: msbuild .\v2rayN\v2rayN.sln /p:Configuration=Release /p:Platform="Any CPU" /m
+
+      - name: Check build output
+        shell: powershell
+        run: |
+          Write-Host "Checking build output..."
+          Get-ChildItem .\v2rayN\v2rayN\bin\Release -Recurse
 
       - name: Prepare release directory
         shell: powershell
         run: |
           New-Item -ItemType Directory -Force -Path .\release | Out-Null
-
-          Copy-Item .\v2rayN\bin\Release\* .\release\ -Recurse -Force
+          Copy-Item .\v2rayN\v2rayN\bin\Release\* .\release\ -Recurse -Force
 
       - name: Create ZIP
         shell: powershell
