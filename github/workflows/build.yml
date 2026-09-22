@@ -1,0 +1,49 @@
+yaml
+name: Build v2rayN 5.39
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore .\v2rayN.sln
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build Release
+        run: msbuild .\v2rayN.sln /p:Configuration=Release /p:Platform="Any CPU" /m
+
+      - name: Prepare release directory
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Force -Path .\release | Out-Null
+
+          Copy-Item .\v2rayN\bin\Release\* .\release\ -Recurse -Force
+
+      - name: Create ZIP
+        shell: powershell
+        run: |
+          Compress-Archive `
+            -Path .\release\* `
+            -DestinationPath .\v2rayN-5.39-build.zip `
+            -Force
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: v2rayN-5.39-build
+          path: .\v2rayN-5.39-build.zip
