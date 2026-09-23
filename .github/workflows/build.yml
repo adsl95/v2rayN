@@ -1,7 +1,6 @@
-yaml
 name: Build v2rayN 5.39
 
-on:
+'on':
   push:
     branches:
       - master
