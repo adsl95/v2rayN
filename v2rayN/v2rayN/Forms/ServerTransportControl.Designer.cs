@@ -99,7 +99,7 @@
             // cmbFingerprint
             // 
             resources.ApplyResources(this.cmbFingerprint, "cmbFingerprint");
-            this.cmbFingerprint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFingerprint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
             this.cmbFingerprint.FormattingEnabled = true;
             this.cmbFingerprint.Name = "cmbFingerprint";
             // 

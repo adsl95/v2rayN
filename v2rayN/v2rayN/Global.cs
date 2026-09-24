@@ -217,7 +217,7 @@ namespace v2rayN
         public static readonly List<string> kcpHeaderTypes = new List<string> { "srtp", "utp", "wechat-video", "dtls", "wireguard" };
         public static readonly List<string> coreTypes = new List<string> { "v2fly", "SagerNet", "Xray", "v2fly_v5" };
         public static readonly List<string> domainMatchers = new List<string> { "linear", "mph", "" };
-        public static readonly List<string> fingerprints = new List<string> { "chrome", "firefox", "safari", "randomized", "" };
+        public static readonly List<string> fingerprints = new List<string> { "chrome", "firefox", "safari", "ios", "android", "edge", "360", "qq", "random", "randomized", "" };
         public static readonly List<string> domainStrategy4Freedoms = new List<string> { "AsIs", "UseIP", "UseIPv4", "UseIPv6", "" };
         public const string GrpcgunMode = "gun";
         public const string GrpcmultiMode = "multi";

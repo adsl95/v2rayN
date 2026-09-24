@@ -773,6 +773,7 @@ namespace v2rayN.Handler
             if (item.streamSecurity == Global.StreamSecurityReality)
             {
                 item.publicKey = Utils.UrlDecode(query["pbk"] ?? "");
+                item.password = item.publicKey;
                 item.shortId = Utils.UrlDecode(query["sid"] ?? "");
                 item.spiderX = Utils.UrlDecode(query["spx"] ?? "");
                 item.mldsa65Verify = Utils.UrlDecode(query["pqv"] ?? "");

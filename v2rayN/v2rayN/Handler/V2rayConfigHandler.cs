@@ -657,10 +657,15 @@ namespace v2rayN.Handler
                 {
                     streamSettings.security = node.streamSecurity;
 
+                    string realityPassword = !string.IsNullOrWhiteSpace(node.password)
+                        ? node.password
+                        : node.publicKey;
+
                     RealitySettings realitySettings = new RealitySettings
                     {
                         fingerprint = node.fingerprint,
                         publicKey = node.publicKey,
+                        password = realityPassword,
                         shortId = node.shortId,
                         spiderX = node.spiderX,
                         mldsa65Verify = node.mldsa65Verify

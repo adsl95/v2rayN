@@ -452,6 +452,11 @@ namespace v2rayN.Mode
     public string publicKey { get; set; }
 
     /// <summary>
+    /// REALITY password
+    /// </summary>
+    public string password { get; set; }
+
+    /// <summary>
     /// REALITY short ID
     /// </summary>
     public string shortId { get; set; }

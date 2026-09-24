@@ -312,6 +312,7 @@ namespace v2rayN.Mode
             flow = string.Empty;
             groupId = string.Empty;
             publicKey = string.Empty;
+            password = string.Empty;
             shortId = string.Empty;
             spiderX = string.Empty;
             mldsa65Verify = string.Empty;
@@ -581,6 +582,8 @@ namespace v2rayN.Mode
         public string fingerprint { get; set; }
 
         public string publicKey { get; set; }
+
+        public string password { get; set; }
 
         public string shortId { get; set; }
 
