@@ -115,6 +115,7 @@ namespace v2rayN
         /// </summary>
         public const string StreamSecurity = "tls";
         public const string StreamSecurityX = "xtls";
+        public const string StreamSecurityReality = "reality";
 
         public const string InboundSocks = "socks";
         public const string InboundHttp = "http";

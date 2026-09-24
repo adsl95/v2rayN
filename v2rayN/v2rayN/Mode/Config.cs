@@ -311,6 +311,10 @@ namespace v2rayN.Mode
             subid = string.Empty;
             flow = string.Empty;
             groupId = string.Empty;
+            publicKey = string.Empty;
+            shortId = string.Empty;
+            spiderX = string.Empty;
+            mldsa65Verify = string.Empty;
         }
 
         #region function
@@ -575,6 +579,15 @@ namespace v2rayN.Mode
         }
 
         public string fingerprint { get; set; }
+
+        public string publicKey { get; set; }
+
+        public string shortId { get; set; }
+
+        public string spiderX { get; set; }
+
+        public string mldsa65Verify { get; set; }
+
     }
 
     [Serializable]

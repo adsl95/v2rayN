@@ -398,6 +398,10 @@ namespace v2rayN.Mode
         /// </summary>
         public TlsSettings xtlsSettings { get; set; }
         /// <summary>
+        /// VLESS REALITY
+        /// </summary>
+        public RealitySettings realitySettings { get; set; }
+        /// <summary>
         /// grpc
         /// </summary>
         public GrpcSettings grpcSettings { get; set; }
@@ -428,6 +432,39 @@ namespace v2rayN.Mode
         /// </summary>
         public string fingerprint { get; set; }
 
+    }
+
+    public class RealitySettings
+    {
+    /// <summary>
+    /// REALITY client fingerprint
+    /// </summary>
+    public string fingerprint { get; set; }
+
+    /// <summary>
+    /// REALITY server name
+    /// </summary>
+    public string serverName { get; set; }
+
+    /// <summary>
+    /// REALITY public key
+    /// </summary>
+    public string publicKey { get; set; }
+
+    /// <summary>
+    /// REALITY short ID
+    /// </summary>
+    public string shortId { get; set; }
+
+    /// <summary>
+    /// REALITY spiderX
+    /// </summary>
+    public string spiderX { get; set; }
+
+    /// <summary>
+    /// REALITY ML-DSA-65 verification public key
+    /// </summary>
+    public string mldsa65Verify { get; set; }
     }
 
     public class TcpSettings
