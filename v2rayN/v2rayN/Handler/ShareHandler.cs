@@ -767,6 +767,17 @@ namespace v2rayN.Handler
             item.streamSecurity = query["security"] ?? "";
             item.sni = query["sni"] ?? "";
             item.alpn = Utils.String2List(Utils.UrlDecode(query["alpn"] ?? ""));
+            
+            item.fingerprint = Utils.UrlDecode(query["fp"] ?? "");
+
+            if (item.streamSecurity == Global.StreamSecurityReality)
+            {
+                item.publicKey = Utils.UrlDecode(query["pbk"] ?? "");
+                item.shortId = Utils.UrlDecode(query["sid"] ?? "");
+                item.spiderX = Utils.UrlDecode(query["spx"] ?? "");
+                item.mldsa65Verify = Utils.UrlDecode(query["pqv"] ?? "");
+            }
+
             item.network = query["type"] ?? "tcp";
             switch (item.network)
             {
