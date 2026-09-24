@@ -525,6 +525,15 @@ namespace v2rayN.Handler
                             outbound.mux.concurrency = -1;
                         }
                     }
+                    else if (node.streamSecurity == Global.StreamSecurityReality)
+                    {
+                        if (!Utils.IsNullOrEmpty(node.flow))
+                        {
+                        usersItem.flow = node.flow;
+                        outbound.mux.enabled = false;
+                        outbound.mux.concurrency = -1;
+                        }
+                    }
 
                     outbound.protocol = Global.vlessProtocolLite;
                     outbound.settings.servers = null;
@@ -641,6 +650,32 @@ namespace v2rayN.Handler
                         xtlsSettings.serverName = Utils.String2List(host)[0];
                     }
                     streamSettings.xtlsSettings = xtlsSettings;
+                }
+
+                //if reality
+                if (node.streamSecurity == Global.StreamSecurityReality)
+                {
+                    streamSettings.security = node.streamSecurity;
+
+                    RealitySettings realitySettings = new RealitySettings
+                    {
+                        fingerprint = node.fingerprint,
+                        publicKey = node.publicKey,
+                        shortId = node.shortId,
+                        spiderX = node.spiderX,
+                        mldsa65Verify = node.mldsa65Verify
+                    };
+
+                    if (!string.IsNullOrWhiteSpace(sni))
+                    {
+                        realitySettings.serverName = sni;
+                    }
+                    else if (!string.IsNullOrWhiteSpace(host))
+                    {
+                        realitySettings.serverName = Utils.String2List(host)[0];
+                    }
+
+                    streamSettings.realitySettings = realitySettings;
                 }
 
                 //streamSettings
