@@ -32,6 +32,9 @@ namespace v2rayN.Forms
             {
                 cmbStreamSecurity.Items.Add(Global.StreamSecurityX);
             }
+
+            cmbStreamSecurity.Items.Add(Global.StreamSecurityReality);
+            
             cmbFingerprint.Items.AddRange(Global.fingerprints.ToArray());
         }
 
