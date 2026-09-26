@@ -422,15 +422,16 @@ namespace v2rayN.Mode
         /// <summary>
         /// 
         /// </summary>
-        public List<string> alpn
-        {
-            get; set;
-        }
+        public List<string> alpn { get; set; }
 
         /// <summary>
         /// "chrome" | "firefox" | "safari" | "randomized"
         /// </summary>
         public string fingerprint { get; set; }
+
+        public string pinnedPeerCertSha256 { get; set; }
+        
+        public string verifyPeerCertByName { get; set; }
 
     }
 

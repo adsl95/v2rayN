@@ -772,11 +772,14 @@ namespace v2rayN.Handler
 
             if (item.streamSecurity == Global.StreamSecurityReality)
             {
+                item.fingerprint = query["fp"] ?? "";
                 item.publicKey = Utils.UrlDecode(query["pbk"] ?? "");
                 item.password = item.publicKey;
                 item.shortId = Utils.UrlDecode(query["sid"] ?? "");
                 item.spiderX = Utils.UrlDecode(query["spx"] ?? "");
                 item.mldsa65Verify = Utils.UrlDecode(query["pqv"] ?? "");
+                item.pinnedPeerCertSha256 = query["pcs"] ?? "";
+                item.verifyPeerCertByName = Utils.UrlDecode(query["vcn"] ?? "");
             }
 
             item.network = query["type"] ?? "tcp";

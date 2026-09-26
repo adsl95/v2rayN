@@ -96,7 +96,7 @@ namespace v2rayN.Forms
         private void CreateRealityControls()
         {
             labRealityPublicKey = CreateRealityLabel(
-                "PublicKey / Password",
+                "PublicKey/Password",
                 "labRealityPublicKey");
 
             labRealityShortId = CreateRealityLabel(

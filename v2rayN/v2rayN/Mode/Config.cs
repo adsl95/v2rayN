@@ -591,6 +591,10 @@ namespace v2rayN.Mode
 
         public string mldsa65Verify { get; set; }
 
+        public string pinnedPeerCertSha256 { get; set; }
+
+        public string verifyPeerCertByName { get; set; }
+
     }
 
     [Serializable]
