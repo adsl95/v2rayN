@@ -617,9 +617,9 @@ namespace v2rayN.Handler
                     {
                         allowInsecure = Utils.ToBool(node.allowInsecure),
                         alpn = node.GetAlpn(),
-                        fingerprint = node.fingerprint
+                        fingerprint = node.fingerprint,
                         pinnedPeerCertSha256 = node.pinnedPeerCertSha256,
-                        verifyPeerCertByName = node.verifyPeerCertByName
+                        verifyPeerCertByName = node.verifyPeerCertByName,
                     };
                     if (!string.IsNullOrWhiteSpace(sni))
                     {
