@@ -209,6 +209,51 @@ namespace v2rayN.Handler
                 dicQuery.Add("alpn", Utils.UrlEncode(Utils.List2String(item.alpn)));
             }
 
+            if (!Utils.IsNullOrEmpty(item.fingerprint))
+            {
+                dicQuery.Add("fp", Utils.UrlEncode(item.fingerprint));
+            }
+
+            if (item.streamSecurity == Global.StreamSecurity)
+            {
+                if (!Utils.IsNullOrEmpty(item.pinnedPeerCertSha256))
+                {
+                    dicQuery.Add("pcs", Utils.UrlEncode(item.pinnedPeerCertSha256));
+                }
+
+                if (!Utils.IsNullOrEmpty(item.verifyPeerCertByName))
+                {
+                    dicQuery.Add("vcn", Utils.UrlEncode(item.verifyPeerCertByName));
+                }
+            }
+
+            if (item.streamSecurity == Global.StreamSecurityReality)
+            {
+                string realityPassword = !Utils.IsNullOrEmpty(item.password)
+                    ? item.password
+                    : item.publicKey;
+
+                if (!Utils.IsNullOrEmpty(realityPassword))
+                {
+                    dicQuery.Add("pbk", Utils.UrlEncode(realityPassword));
+                }
+
+                if (!Utils.IsNullOrEmpty(item.shortId))
+                {
+                    dicQuery.Add("sid", Utils.UrlEncode(item.shortId));
+                }
+
+                if (!Utils.IsNullOrEmpty(item.spiderX))
+                {
+                    dicQuery.Add("spx", Utils.UrlEncode(item.spiderX));
+                }
+
+                if (!Utils.IsNullOrEmpty(item.mldsa65Verify))
+                {
+                    dicQuery.Add("pqv", Utils.UrlEncode(item.mldsa65Verify));
+                }
+            }
+
             dicQuery.Add("type", !Utils.IsNullOrEmpty(item.network) ? item.network : "tcp");
 
             switch (item.network)
@@ -769,6 +814,8 @@ namespace v2rayN.Handler
             item.alpn = Utils.String2List(Utils.UrlDecode(query["alpn"] ?? ""));
             
             item.fingerprint = Utils.UrlDecode(query["fp"] ?? "");
+            item.pinnedPeerCertSha256 = Utils.UrlDecode(query["pcs"] ?? "");
+            item.verifyPeerCertByName = Utils.UrlDecode(query["vcn"] ?? "");
 
             if (item.streamSecurity == Global.StreamSecurityReality)
             {
@@ -777,8 +824,6 @@ namespace v2rayN.Handler
                 item.shortId = Utils.UrlDecode(query["sid"] ?? "");
                 item.spiderX = Utils.UrlDecode(query["spx"] ?? "");
                 item.mldsa65Verify = Utils.UrlDecode(query["pqv"] ?? "");
-                item.pinnedPeerCertSha256 = query["pcs"] ?? "";
-                item.verifyPeerCertByName = Utils.UrlDecode(query["vcn"] ?? "");
             }
 
             item.network = query["type"] ?? "tcp";
