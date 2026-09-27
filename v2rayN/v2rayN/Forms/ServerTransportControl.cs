@@ -20,10 +20,14 @@ namespace v2rayN.Forms
         private Label labRealityShortId;
         private Label labRealitySpiderX;
         private Label labRealityMldsa65Verify;
+        private Label labTlsPinnedPeerCertSha256;
+        private Label labTlsVerifyPeerCertByName;
         private TextBox txtRealityPublicKey;
         private TextBox txtRealityShortId;
         private TextBox txtRealitySpiderX;
         private TextBox txtRealityMldsa65Verify;
+        private TextBox txtTlsPinnedPeerCertSha256;
+        private TextBox txtTlsVerifyPeerCertByName;
 
         // Binding flag prevents the security panel from being repeatedly
         // rearranged while a node is being loaded.
@@ -111,6 +115,14 @@ namespace v2rayN.Forms
                 "mldsa65Verify",
                 "labRealityMldsa65Verify");
 
+            labTlsPinnedPeerCertSha256 = CreateRealityLabel(
+                "PCS / Cert SHA256",
+                "labTlsPinnedPeerCertSha256");
+
+            labTlsVerifyPeerCertByName = CreateRealityLabel(
+                "VCN / Cert Name",
+                "labTlsVerifyPeerCertByName");  
+
             txtRealityPublicKey = CreateRealityTextBox(
                 "txtRealityPublicKey");
 
@@ -139,6 +151,14 @@ namespace v2rayN.Forms
             txtRealityShortId.Visible = false;
             txtRealitySpiderX.Visible = false;
             txtRealityMldsa65Verify.Visible = false;
+
+            txtTlsPinnedPeerCertSha256 = new TextBox();
+            txtTlsPinnedPeerCertSha256.Name = "txtTlsPinnedPeerCertSha256";
+            txtTlsPinnedPeerCertSha256.Width = 500;
+
+            txtTlsVerifyPeerCertByName = new TextBox();
+            txtTlsVerifyPeerCertByName.Name = "txtTlsVerifyPeerCertByName";
+            txtTlsVerifyPeerCertByName.Width = 500;  
         }
 
         private Label CreateRealityLabel(string text, string name)
@@ -153,6 +173,8 @@ namespace v2rayN.Forms
             };
 
             panTlsMore.Controls.Add(label);
+            panTlsMore.Controls.Add(labTlsPinnedPeerCertSha256);
+            panTlsMore.Controls.Add(labTlsVerifyPeerCertByName);
             return label;
         }
 
@@ -169,6 +191,8 @@ namespace v2rayN.Forms
             };
 
             panTlsMore.Controls.Add(textBox);
+            panTlsMore.Controls.Add(txtTlsPinnedPeerCertSha256);
+            panTlsMore.Controls.Add(txtTlsVerifyPeerCertByName);
             return textBox;
         }
 
@@ -245,6 +269,8 @@ namespace v2rayN.Forms
                 txtRealityShortId.Text = vmessItem.shortId;
                 txtRealitySpiderX.Text = vmessItem.spiderX;
                 txtRealityMldsa65Verify.Text = vmessItem.mldsa65Verify;
+                txtTlsPinnedPeerCertSha256.Text = vmessItem.pinnedPeerCertSha256 ?? "";
+                txtTlsVerifyPeerCertByName.Text = vmessItem.verifyPeerCertByName ?? "";
             }
             finally
             {
@@ -274,6 +300,8 @@ namespace v2rayN.Forms
                 txtRealityShortId.Text = "";
                 txtRealitySpiderX.Text = "";
                 txtRealityMldsa65Verify.Text = "";
+                txtTlsPinnedPeerCertSha256.Text = "";
+                txtTlsVerifyPeerCertByName.Text = "";
 
                 for (int i = 0; i < clbAlpn.Items.Count; i++)
                 {
@@ -330,6 +358,8 @@ namespace v2rayN.Forms
                 vmessItem.shortId = txtRealityShortId.Text.Trim();
                 vmessItem.spiderX = txtRealitySpiderX.Text.Trim();
                 vmessItem.mldsa65Verify = txtRealityMldsa65Verify.Text.Trim();
+                vmessItem.pinnedPeerCertSha256 = txtTlsPinnedPeerCertSha256.Text.Trim();
+                vmessItem.verifyPeerCertByName = txtTlsVerifyPeerCertByName.Text.Trim();
             }
         }
 
@@ -451,6 +481,10 @@ namespace v2rayN.Forms
             {
                 ApplyRealityLayout();
             }
+            else if (security == Global.StreamSecurity)
+            {
+                ApplyTlsPinningLayout();
+            }
             else
             {
                 RestoreOriginalSecurityLayout();
@@ -463,6 +497,11 @@ namespace v2rayN.Forms
 
         private void ApplyRealityLayout()
         {
+            labTlsPinnedPeerCertSha256.Visible = false;
+            txtTlsPinnedPeerCertSha256.Visible = false;
+            labTlsVerifyPeerCertByName.Visible = false;
+            txtTlsVerifyPeerCertByName.Visible = false;
+
             panTlsMore.SuspendLayout();
 
             panTlsMore.Show();
@@ -576,8 +615,31 @@ namespace v2rayN.Forms
                 new Size(gbTransport.Width, gbTransport.Height);
         }
 
+        private void ApplyTlsPinningLayout()
+        {
+            labTlsPinnedPeerCertSha256.Visible = true;
+            txtTlsPinnedPeerCertSha256.Visible = true;
+            labTlsVerifyPeerCertByName.Visible = true;
+            txtTlsVerifyPeerCertByName.Visible = true;
+
+            labTlsPinnedPeerCertSha256.Location = new System.Drawing.Point(16, 131);
+            txtTlsPinnedPeerCertSha256.Location = new System.Drawing.Point(133, 126);
+
+            labTlsVerifyPeerCertByName.Location = new System.Drawing.Point(16, 172);
+            txtTlsVerifyPeerCertByName.Location = new System.Drawing.Point(133, 167);
+
+            txtTlsPinnedPeerCertSha256.Size = new System.Drawing.Size(500, 25);
+            txtTlsVerifyPeerCertByName.Size = new System.Drawing.Size(500, 25);
+
+            panTransportScroll.AutoScroll = true;
+        }
+
         private void RestoreOriginalSecurityLayout()
         {
+            labTlsPinnedPeerCertSha256.Visible = false;
+            txtTlsPinnedPeerCertSha256.Visible = false;
+            labTlsVerifyPeerCertByName.Visible = false;
+            txtTlsVerifyPeerCertByName.Visible = false;
             panTlsMore.SuspendLayout();
 
             panTlsMore.Height = originalPanTlsMoreHeight;
