@@ -111,8 +111,8 @@ namespace v2rayN.Forms
 
             // Certificate pinning belongs to the normal TLS settings UI.
             // It is deliberately kept separate from the Reality-only controls.
-            labTlsPinnedPeerCertSha256 = CreateTlsLabel("PCS / Cert SHA256", "labTlsPinnedPeerCertSha256");
-            labTlsVerifyPeerCertByName = CreateTlsLabel("VCN / Cert Name", "labTlsVerifyPeerCertByName");
+            labTlsPinnedPeerCertSha256 = CreateTlsLabel("PCS/SHA256", "labTlsPinnedPeerCertSha256");
+            labTlsVerifyPeerCertByName = CreateTlsLabel("VCN/Name", "labTlsVerifyPeerCertByName");
             txtTlsPinnedPeerCertSha256 = CreateTlsTextBox("txtTlsPinnedPeerCertSha256");
             txtTlsVerifyPeerCertByName = CreateTlsTextBox("txtTlsVerifyPeerCertByName");
 
@@ -638,23 +638,23 @@ namespace v2rayN.Forms
             int labelLeft = originalLabAllowInsecureBounds.Left;
             int controlLeft = originalTxtSniBounds.Left;
             int controlRight = 8;
-            int rowTop = Math.Max(
-                originalPanTlsMoreHeight,
-                clbAlpn.Bottom + 8);
+            int rowTop = clbAlpn.Bottom + 6;
 
+            // PCS
             labTlsPinnedPeerCertSha256.Location = new Point(labelLeft, rowTop);
             txtTlsPinnedPeerCertSha256.Location = new Point(controlLeft, rowTop - 4);
             txtTlsPinnedPeerCertSha256.Width = Math.Max(
                 200,
                 panTlsMore.ClientSize.Width - txtTlsPinnedPeerCertSha256.Left - controlRight);
 
-            labTlsVerifyPeerCertByName.Location = new Point(labelLeft, rowTop + 35);
-            txtTlsVerifyPeerCertByName.Location = new Point(controlLeft, rowTop + 31);
+            // VCN
+            labTlsVerifyPeerCertByName.Location = new Point(labelLeft, rowTop + 30);
+            txtTlsVerifyPeerCertByName.Location = new Point(controlLeft, rowTop + 26);
             txtTlsVerifyPeerCertByName.Width = Math.Max(
                 200,
                 panTlsMore.ClientSize.Width - txtTlsVerifyPeerCertByName.Left - controlRight);
 
-            panTlsMore.Height = rowTop + Math.Max(25, txtTlsVerifyPeerCertByName.Height) + 8;
+            panTlsMore.Height = rowTop + Math.Max(25, txtTlsVerifyPeerCertByName.Height) + 6;
 
             panTlsMore.ResumeLayout();
 
