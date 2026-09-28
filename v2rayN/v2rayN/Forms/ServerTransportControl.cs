@@ -142,6 +142,23 @@ namespace v2rayN.Forms
             txtRealitySpiderX.TabIndex = 52;
             txtRealityMldsa65Verify.TabIndex = 53;
 
+            // Add every runtime-created control to panTlsMore.
+            // Without these Controls.Add calls, the outer scroll area can
+            // become larger while the new controls themselves remain
+            // invisible because they have no parent control.
+            panTlsMore.Controls.Add(labRealityPublicKey);
+            panTlsMore.Controls.Add(txtRealityPublicKey);
+            panTlsMore.Controls.Add(labRealityShortId);
+            panTlsMore.Controls.Add(txtRealityShortId);
+            panTlsMore.Controls.Add(labRealitySpiderX);
+            panTlsMore.Controls.Add(txtRealitySpiderX);
+            panTlsMore.Controls.Add(labRealityMldsa65Verify);
+            panTlsMore.Controls.Add(txtRealityMldsa65Verify);
+            panTlsMore.Controls.Add(labTlsPinnedPeerCertSha256);
+            panTlsMore.Controls.Add(txtTlsPinnedPeerCertSha256);
+            panTlsMore.Controls.Add(labTlsVerifyPeerCertByName);
+            panTlsMore.Controls.Add(txtTlsVerifyPeerCertByName);
+
             labRealityPublicKey.Visible = false;
             labRealityShortId.Visible = false;
             labRealitySpiderX.Visible = false;
@@ -152,13 +169,11 @@ namespace v2rayN.Forms
             txtRealitySpiderX.Visible = false;
             txtRealityMldsa65Verify.Visible = false;
 
-            txtTlsPinnedPeerCertSha256 = new TextBox();
-            txtTlsPinnedPeerCertSha256.Name = "txtTlsPinnedPeerCertSha256";
-            txtTlsPinnedPeerCertSha256.Width = 500;
+            txtTlsPinnedPeerCertSha256 = CreateRealityTextBox(
+                "txtTlsPinnedPeerCertSha256");
 
-            txtTlsVerifyPeerCertByName = new TextBox();
-            txtTlsVerifyPeerCertByName.Name = "txtTlsVerifyPeerCertByName";
-            txtTlsVerifyPeerCertByName.Width = 500;  
+            txtTlsVerifyPeerCertByName = CreateRealityTextBox(
+                "txtTlsVerifyPeerCertByName");
         }
 
         private Label CreateRealityLabel(string text, string name)
@@ -352,9 +367,13 @@ namespace v2rayN.Forms
                 vmessItem.shortId = txtRealityShortId.Text.Trim();
                 vmessItem.spiderX = txtRealitySpiderX.Text.Trim();
                 vmessItem.mldsa65Verify = txtRealityMldsa65Verify.Text.Trim();
-                vmessItem.pinnedPeerCertSha256 = txtTlsPinnedPeerCertSha256.Text.Trim();
-                vmessItem.verifyPeerCertByName = txtTlsVerifyPeerCertByName.Text.Trim();
             }
+
+            // PCS/VCN belong to the TLS certificate settings and must be
+            // saved regardless of whether the node is currently displayed
+            // as TLS or Reality.
+            vmessItem.pinnedPeerCertSha256 = txtTlsPinnedPeerCertSha256.Text.Trim();
+            vmessItem.verifyPeerCertByName = txtTlsVerifyPeerCertByName.Text.Trim();
         }
 
         private void cmbNetwork_SelectedIndexChanged(object sender, EventArgs e)
