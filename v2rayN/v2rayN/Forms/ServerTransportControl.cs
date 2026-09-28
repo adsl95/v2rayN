@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -99,36 +99,41 @@ namespace v2rayN.Forms
 
         private void CreateRealityControls()
         {
-            labRealityPublicKey = CreateRealityLabel("PublicKey/Password", "labRealityPublicKey");
-            labRealityShortId = CreateRealityLabel("ShortId", "labRealityShortId");
-            labRealitySpiderX = CreateRealityLabel("SpiderX", "labRealitySpiderX");
-            labRealityMldsa65Verify = CreateRealityLabel("mldsa65Verify", "labRealityMldsa65Verify");
+            labRealityPublicKey = CreateRealityLabel(
+                "PublicKey/Password",
+                "labRealityPublicKey");
 
-            txtRealityPublicKey = CreateRealityTextBox("txtRealityPublicKey");
-            txtRealityShortId = CreateRealityTextBox("txtRealityShortId");
-            txtRealitySpiderX = CreateRealityTextBox("txtRealitySpiderX");
-            txtRealityMldsa65Verify = CreateRealityTextBox("txtRealityMldsa65Verify");
+            labRealityShortId = CreateRealityLabel(
+                "ShortId",
+                "labRealityShortId");
 
-            // Certificate pinning belongs to the normal TLS settings UI.
-            // It is deliberately kept separate from the Reality-only controls.
-            labTlsPinnedPeerCertSha256 = CreateTlsLabel("PCS/SHA256", "labTlsPinnedPeerCertSha256");
-            labTlsVerifyPeerCertByName = CreateTlsLabel("VCN/Name", "labTlsVerifyPeerCertByName");
-            txtTlsPinnedPeerCertSha256 = CreateTlsTextBox("txtTlsPinnedPeerCertSha256");
-            txtTlsVerifyPeerCertByName = CreateTlsTextBox("txtTlsVerifyPeerCertByName");
+            labRealitySpiderX = CreateRealityLabel(
+                "SpiderX",
+                "labRealitySpiderX");
 
-            panTlsMore.Controls.Add(labRealityPublicKey);
-            panTlsMore.Controls.Add(txtRealityPublicKey);
-            panTlsMore.Controls.Add(labRealityShortId);
-            panTlsMore.Controls.Add(txtRealityShortId);
-            panTlsMore.Controls.Add(labRealitySpiderX);
-            panTlsMore.Controls.Add(txtRealitySpiderX);
-            panTlsMore.Controls.Add(labRealityMldsa65Verify);
-            panTlsMore.Controls.Add(txtRealityMldsa65Verify);
+            labRealityMldsa65Verify = CreateRealityLabel(
+                "mldsa65Verify",
+                "labRealityMldsa65Verify");
 
-            panTlsMore.Controls.Add(labTlsPinnedPeerCertSha256);
-            panTlsMore.Controls.Add(txtTlsPinnedPeerCertSha256);
-            panTlsMore.Controls.Add(labTlsVerifyPeerCertByName);
-            panTlsMore.Controls.Add(txtTlsVerifyPeerCertByName);
+            labTlsPinnedPeerCertSha256 = CreateRealityLabel(
+                "PCS / Cert SHA256",
+                "labTlsPinnedPeerCertSha256");
+
+            labTlsVerifyPeerCertByName = CreateRealityLabel(
+                "VCN / Cert Name",
+                "labTlsVerifyPeerCertByName");  
+
+            txtRealityPublicKey = CreateRealityTextBox(
+                "txtRealityPublicKey");
+
+            txtRealityShortId = CreateRealityTextBox(
+                "txtRealityShortId");
+
+            txtRealitySpiderX = CreateRealityTextBox(
+                "txtRealitySpiderX");
+
+            txtRealityMldsa65Verify = CreateRealityTextBox(
+                "txtRealityMldsa65Verify");
 
             txtRealityShortId.Width = 189;
 
@@ -136,26 +141,29 @@ namespace v2rayN.Forms
             txtRealityShortId.TabIndex = 51;
             txtRealitySpiderX.TabIndex = 52;
             txtRealityMldsa65Verify.TabIndex = 53;
-            txtTlsPinnedPeerCertSha256.TabIndex = 54;
-            txtTlsVerifyPeerCertByName.TabIndex = 55;
 
-            labRealityPublicKey.Hide();
-            labRealityShortId.Hide();
-            labRealitySpiderX.Hide();
-            labRealityMldsa65Verify.Hide();
-            txtRealityPublicKey.Hide();
-            txtRealityShortId.Hide();
-            txtRealitySpiderX.Hide();
-            txtRealityMldsa65Verify.Hide();
-            labTlsPinnedPeerCertSha256.Hide();
-            labTlsVerifyPeerCertByName.Hide();
-            txtTlsPinnedPeerCertSha256.Hide();
-            txtTlsVerifyPeerCertByName.Hide();
+            labRealityPublicKey.Visible = false;
+            labRealityShortId.Visible = false;
+            labRealitySpiderX.Visible = false;
+            labRealityMldsa65Verify.Visible = false;
+
+            txtRealityPublicKey.Visible = false;
+            txtRealityShortId.Visible = false;
+            txtRealitySpiderX.Visible = false;
+            txtRealityMldsa65Verify.Visible = false;
+
+            txtTlsPinnedPeerCertSha256 = new TextBox();
+            txtTlsPinnedPeerCertSha256.Name = "txtTlsPinnedPeerCertSha256";
+            txtTlsPinnedPeerCertSha256.Width = 500;
+
+            txtTlsVerifyPeerCertByName = new TextBox();
+            txtTlsVerifyPeerCertByName.Name = "txtTlsVerifyPeerCertByName";
+            txtTlsVerifyPeerCertByName.Width = 500;  
         }
 
         private Label CreateRealityLabel(string text, string name)
         {
-            return new Label
+            Label label = new Label
             {
                 Name = name,
                 Text = text,
@@ -163,11 +171,13 @@ namespace v2rayN.Forms
                 Font = labSNI.Font,
                 Margin = labSNI.Margin
             };
+
+            return label;
         }
 
         private TextBox CreateRealityTextBox(string name)
         {
-            return new TextBox
+            TextBox textBox = new TextBox
             {
                 Name = name,
                 Font = txtSNI.Font,
@@ -176,31 +186,8 @@ namespace v2rayN.Forms
                 Margin = txtSNI.Margin,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
-        }
 
-        private Label CreateTlsLabel(string text, string name)
-        {
-            return new Label
-            {
-                Name = name,
-                Text = text,
-                AutoSize = true,
-                Font = labSNI.Font,
-                Margin = labSNI.Margin
-            };
-        }
-
-        private TextBox CreateTlsTextBox(string name)
-        {
-            return new TextBox
-            {
-                Name = name,
-                Font = txtSNI.Font,
-                BorderStyle = txtSNI.BorderStyle,
-                Height = txtSNI.Height,
-                Margin = txtSNI.Margin,
-                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
-            };
+            return textBox;
         }
 
         private void Init(VmessItem item)
@@ -365,13 +352,9 @@ namespace v2rayN.Forms
                 vmessItem.shortId = txtRealityShortId.Text.Trim();
                 vmessItem.spiderX = txtRealitySpiderX.Text.Trim();
                 vmessItem.mldsa65Verify = txtRealityMldsa65Verify.Text.Trim();
+                vmessItem.pinnedPeerCertSha256 = txtTlsPinnedPeerCertSha256.Text.Trim();
+                vmessItem.verifyPeerCertByName = txtTlsVerifyPeerCertByName.Text.Trim();
             }
-
-            // PCS/VCN are TLS certificate verification settings. Save them
-            // independently of the currently selected transport security so
-            // switching TLS -> Reality -> TLS does not lose the values.
-            vmessItem.pinnedPeerCertSha256 = txtTlsPinnedPeerCertSha256.Text.Trim();
-            vmessItem.verifyPeerCertByName = txtTlsVerifyPeerCertByName.Text.Trim();
         }
 
         private void cmbNetwork_SelectedIndexChanged(object sender, EventArgs e)
@@ -478,6 +461,16 @@ namespace v2rayN.Forms
         {
             string security = cmbStreamSecurity.Text;
 
+            if (Utils.IsNullOrEmpty(security))
+            {
+                RestoreOriginalSecurityLayout();
+                panTlsMore.Hide();
+
+                panTransportScroll.AutoScroll = false;
+                panTransportScroll.AutoScrollMinSize = new Size(0, 0);
+                return;
+            }
+
             if (security == Global.StreamSecurityReality)
             {
                 ApplyRealityLayout();
@@ -490,51 +483,60 @@ namespace v2rayN.Forms
             {
                 RestoreOriginalSecurityLayout();
                 panTlsMore.Show();
+
                 panTransportScroll.AutoScroll = false;
                 panTransportScroll.AutoScrollMinSize = new Size(0, 0);
             }
         }
 
-        private int GetAvailableTransportWidth()
-        {
-            int width = panTransportScroll.ClientSize.Width;
-
-            if (panTransportScroll.AutoScroll)
-            {
-                width -= SystemInformation.VerticalScrollBarWidth;
-            }
-
-            width -= 4;
-
-            return Math.Max(300, width);
-        }
-
-        private void PrepareScrollableTransport()
-        {
-            gbTransport.Dock = DockStyle.None;
-            gbTransport.Location = new Point(0, 0);
-            gbTransport.Width = GetAvailableTransportWidth();
-        }
-
         private void ApplyRealityLayout()
         {
+            labTlsPinnedPeerCertSha256.Visible = false;
+            txtTlsPinnedPeerCertSha256.Visible = false;
+            labTlsVerifyPeerCertByName.Visible = false;
+            txtTlsVerifyPeerCertByName.Visible = false;
+
             panTlsMore.SuspendLayout();
-            PrepareScrollableTransport();
+
             panTlsMore.Show();
 
-            // Reality does not use the old TLS-only allowInsecure/ALPN rows.
+            // Hide TLS-only controls.
             labAllowInsecure.Hide();
             cmbAllowInsecure.Hide();
             label1.Hide();
             clbAlpn.Hide();
 
+            // Keep SNI and fingerprint in the familiar 5.39 positions,
+            // but rearrange them into a compact vertical Reality layout.
             labSNI.Show();
             txtSNI.Show();
             labfingerprint.Show();
             cmbFingerprint.Show();
 
-            int realityPanelWidth = gbTransport.ClientSize.Width - panTlsMore.Left - 8;
-            panTlsMore.Width = Math.Max(300, realityPanelWidth);
+            gbTransport.Dock = DockStyle.None;
+            gbTransport.Location = new Point(0, 0);
+
+            int availableWidth = panTransportScroll.ClientSize.Width
+                - SystemInformation.VerticalScrollBarWidth
+                - 4;
+
+            if (availableWidth < 300)
+            {
+                availableWidth = 300;
+            }
+
+            gbTransport.Width = availableWidth;
+
+            int realityPanelWidth = gbTransport.ClientSize.Width
+                - panTlsMore.Left
+                - 8;
+
+            if (realityPanelWidth < 300)
+            {
+                realityPanelWidth = 300;
+            }
+
+            panTlsMore.Width = realityPanelWidth;
             panTlsMore.Height = 220;
 
             const int labelLeft = 16;
@@ -543,19 +545,28 @@ namespace v2rayN.Forms
 
             labSNI.Location = new Point(labelLeft, 12);
             txtSNI.Location = new Point(controlLeft, 9);
-            txtSNI.Width = Math.Max(200, panTlsMore.ClientSize.Width - txtSNI.Left - controlRight);
+            txtSNI.Width = Math.Max(
+                200,
+                panTlsMore.ClientSize.Width - txtSNI.Left - controlRight);
 
             labfingerprint.Location = new Point(labelLeft, 47);
+
             cmbFingerprint.Location = new Point(controlLeft, 44);
             cmbFingerprint.Width = Math.Max(
                 120,
                 Math.Min(
                     originalCmbFingerprintBounds.Width,
-                    panTlsMore.ClientSize.Width - cmbFingerprint.Left - controlRight));
+                    panTlsMore.ClientSize.Width
+                        - cmbFingerprint.Left
+                        - controlRight));
 
             labRealityPublicKey.Location = new Point(labelLeft, 82);
             txtRealityPublicKey.Location = new Point(controlLeft, 79);
-            txtRealityPublicKey.Width = Math.Max(200, panTlsMore.ClientSize.Width - txtRealityPublicKey.Left - controlRight);
+            txtRealityPublicKey.Width = Math.Max(
+                200,
+                panTlsMore.ClientSize.Width
+                    - txtRealityPublicKey.Left
+                    - controlRight);
 
             labRealityShortId.Location = new Point(labelLeft, 117);
             txtRealityShortId.Location = new Point(controlLeft, 114);
@@ -563,42 +574,47 @@ namespace v2rayN.Forms
 
             labRealitySpiderX.Location = new Point(labelLeft, 152);
             txtRealitySpiderX.Location = new Point(controlLeft, 149);
-            txtRealitySpiderX.Width = Math.Max(200, panTlsMore.ClientSize.Width - txtRealitySpiderX.Left - controlRight);
+            txtRealitySpiderX.Width = Math.Max(
+                200,
+                panTlsMore.ClientSize.Width
+                    - txtRealitySpiderX.Left
+                    - controlRight);
 
             labRealityMldsa65Verify.Location = new Point(labelLeft, 187);
             txtRealityMldsa65Verify.Location = new Point(controlLeft, 184);
-            txtRealityMldsa65Verify.Width = Math.Max(200, panTlsMore.ClientSize.Width - txtRealityMldsa65Verify.Left - controlRight);
+            txtRealityMldsa65Verify.Width = Math.Max(
+                200,
+                panTlsMore.ClientSize.Width
+                    - txtRealityMldsa65Verify.Left
+                    - controlRight);
 
             labRealityPublicKey.Show();
             labRealityShortId.Show();
             labRealitySpiderX.Show();
             labRealityMldsa65Verify.Show();
+
             txtRealityPublicKey.Show();
             txtRealityShortId.Show();
             txtRealitySpiderX.Show();
             txtRealityMldsa65Verify.Show();
 
-            // PCS/VCN are TLS-only UI and must never remain visible in Reality.
-            labTlsPinnedPeerCertSha256.Hide();
-            txtTlsPinnedPeerCertSha256.Hide();
-            labTlsVerifyPeerCertByName.Hide();
-            txtTlsVerifyPeerCertByName.Hide();
-
             panTlsMore.ResumeLayout();
 
-            gbTransport.Height = Math.Max(originalGbTransportHeight, panTlsMore.Bottom + 8);
+            gbTransport.Height = Math.Max(
+                originalGbTransportHeight,
+                panTlsMore.Bottom + 8);
 
             panTransportScroll.AutoScroll = true;
-            panTransportScroll.AutoScrollMinSize = new Size(gbTransport.Width, gbTransport.Height);
+            panTransportScroll.AutoScrollMinSize =
+                new Size(gbTransport.Width, gbTransport.Height);
         }
 
         private void ApplyTlsPinningLayout()
         {
             panTlsMore.SuspendLayout();
-            PrepareScrollableTransport();
-            panTlsMore.Show();
 
-            // Restore the original 5.39 TLS layout first.
+            // TLS must always start from the original 5.39 layout.
+            // This prevents the previous Reality positions from leaking into TLS.
             labSNI.Bounds = originalLabSniBounds;
             txtSNI.Bounds = originalTxtSniBounds;
             labfingerprint.Bounds = originalLabFingerprintBounds;
@@ -608,16 +624,16 @@ namespace v2rayN.Forms
             label1.Bounds = originalLabel1Bounds;
             clbAlpn.Bounds = originalClbAlpnBounds;
 
-            labAllowInsecure.Show();
-            cmbAllowInsecure.Show();
-            label1.Show();
-            clbAlpn.Show();
             labSNI.Show();
             txtSNI.Show();
             labfingerprint.Show();
             cmbFingerprint.Show();
+            labAllowInsecure.Show();
+            cmbAllowInsecure.Show();
+            label1.Show();
+            clbAlpn.Show();
 
-            // Reality-only rows are hidden before placing TLS pinning rows.
+            // Hide all Reality-only controls.
             labRealityPublicKey.Hide();
             labRealityShortId.Hide();
             labRealitySpiderX.Hide();
@@ -627,37 +643,39 @@ namespace v2rayN.Forms
             txtRealitySpiderX.Hide();
             txtRealityMldsa65Verify.Hide();
 
+            // Show TLS certificate verification controls.
             labTlsPinnedPeerCertSha256.Show();
             txtTlsPinnedPeerCertSha256.Show();
             labTlsVerifyPeerCertByName.Show();
             txtTlsVerifyPeerCertByName.Show();
 
-            int panelWidth = gbTransport.ClientSize.Width - panTlsMore.Left - 8;
-            panTlsMore.Width = Math.Max(300, panelWidth);
+            // The original panTlsMore is 131px high.
+            // Its last original control (ALPN) ends around y=33.
+            // Put PCS/VCN clearly below the original TLS controls instead
+            // of guessing from the current/previous layout.
+            const int labelLeft = 16;
+            const int controlLeft = 172;
+            const int row1Top = 131;
+            const int row2Top = 166;
 
-            int labelLeft = originalLabAllowInsecureBounds.Left;
-            int controlLeft = originalTxtSniBounds.Left;
-            int controlRight = 8;
-            int rowTop = clbAlpn.Bottom + 6;
+            labTlsPinnedPeerCertSha256.Location = new Point(labelLeft, row1Top);
+            txtTlsPinnedPeerCertSha256.Location = new Point(controlLeft, row1Top - 4);
+            txtTlsPinnedPeerCertSha256.Width = Math.Max(250, panTlsMore.ClientSize.Width - controlLeft - 8);
 
-            // PCS
-            labTlsPinnedPeerCertSha256.Location = new Point(labelLeft, rowTop);
-            txtTlsPinnedPeerCertSha256.Location = new Point(controlLeft, rowTop - 4);
-            txtTlsPinnedPeerCertSha256.Width = Math.Max(
-                200,
-                panTlsMore.ClientSize.Width - txtTlsPinnedPeerCertSha256.Left - controlRight);
+            labTlsVerifyPeerCertByName.Location = new Point(labelLeft, row2Top);
+            txtTlsVerifyPeerCertByName.Location = new Point(controlLeft, row2Top - 4);
+            txtTlsVerifyPeerCertByName.Width = Math.Max(250, panTlsMore.ClientSize.Width - controlLeft - 8);
 
-            // VCN
-            labTlsVerifyPeerCertByName.Location = new Point(labelLeft, rowTop + 30);
-            txtTlsVerifyPeerCertByName.Location = new Point(controlLeft, rowTop + 26);
-            txtTlsVerifyPeerCertByName.Width = Math.Max(
-                200,
-                panTlsMore.ClientSize.Width - txtTlsVerifyPeerCertByName.Left - controlRight);
-
-            panTlsMore.Height = rowTop + Math.Max(25, txtTlsVerifyPeerCertByName.Height) + 6;
+            // Make enough room for both new rows.
+            panTlsMore.Height = row2Top + Math.Max(25, txtTlsVerifyPeerCertByName.Height) + 8;
+            panTlsMore.Show();
 
             panTlsMore.ResumeLayout();
 
+            // The outer scroll host must know the enlarged content height.
+            gbTransport.Dock = DockStyle.None;
+            gbTransport.Location = new Point(0, 0);
+            gbTransport.Width = Math.Max(300, panTransportScroll.ClientSize.Width - SystemInformation.VerticalScrollBarWidth - 4);
             gbTransport.Height = Math.Max(originalGbTransportHeight, panTlsMore.Bottom + 8);
 
             panTransportScroll.AutoScroll = true;
@@ -666,21 +684,11 @@ namespace v2rayN.Forms
 
         private void RestoreOriginalSecurityLayout()
         {
+            labTlsPinnedPeerCertSha256.Visible = false;
+            txtTlsPinnedPeerCertSha256.Visible = false;
+            labTlsVerifyPeerCertByName.Visible = false;
+            txtTlsVerifyPeerCertByName.Visible = false;
             panTlsMore.SuspendLayout();
-
-            labTlsPinnedPeerCertSha256.Hide();
-            txtTlsPinnedPeerCertSha256.Hide();
-            labTlsVerifyPeerCertByName.Hide();
-            txtTlsVerifyPeerCertByName.Hide();
-
-            labRealityPublicKey.Hide();
-            labRealityShortId.Hide();
-            labRealitySpiderX.Hide();
-            labRealityMldsa65Verify.Hide();
-            txtRealityPublicKey.Hide();
-            txtRealityShortId.Hide();
-            txtRealitySpiderX.Hide();
-            txtRealityMldsa65Verify.Hide();
 
             panTlsMore.Height = originalPanTlsMoreHeight;
 
@@ -697,16 +705,21 @@ namespace v2rayN.Forms
             cmbAllowInsecure.Show();
             label1.Show();
             clbAlpn.Show();
-            labSNI.Show();
-            txtSNI.Show();
-            labfingerprint.Show();
-            cmbFingerprint.Show();
+
+            labRealityPublicKey.Hide();
+            labRealityShortId.Hide();
+            labRealitySpiderX.Hide();
+            labRealityMldsa65Verify.Hide();
+
+            txtRealityPublicKey.Hide();
+            txtRealityShortId.Hide();
+            txtRealitySpiderX.Hide();
+            txtRealityMldsa65Verify.Hide();
 
             panTlsMore.ResumeLayout();
 
             gbTransport.Dock = DockStyle.Fill;
             gbTransport.Location = new Point(0, 0);
-            gbTransport.Width = panTransportScroll.ClientSize.Width;
             gbTransport.Height = originalGbTransportHeight;
         }
 
