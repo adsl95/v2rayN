@@ -704,11 +704,11 @@ namespace v2rayN.Forms
             btnGetTlsCertificate.Show();
             labTlsCertificateStatus.Show();
 
-            // Use the empty horizontal space to the right of the Fingerprint
-            // dropdown. This avoids changing the vertical layout or the
-            // already-tested PCS/VCN positions.
-            btnGetTlsCertificate.Location = new Point(370, 89);
-            labTlsCertificateStatus.Location = new Point(510, 94);
+            // Put the certificate button on its own row directly below Fingerprint.
+            // Keep it aligned with the main input controls. The status label
+            // sits to its right and remains inside the scrollable panel.
+            btnGetTlsCertificate.Location = new Point(172, 76);
+            labTlsCertificateStatus.Location = new Point(312, 81);
 
             // The original panTlsMore is 131px high.
             // Its last original control (ALPN) ends around y=33.
