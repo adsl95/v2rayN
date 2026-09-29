@@ -119,11 +119,11 @@ namespace v2rayN.Forms
                 "labRealityMldsa65Verify");
 
             labTlsPinnedPeerCertSha256 = CreateRealityLabel(
-                "PCS / Cert SHA256",
+                "PCS/Cert SHA256",
                 "labTlsPinnedPeerCertSha256");
 
             labTlsVerifyPeerCertByName = CreateRealityLabel(
-                "VCN / Cert Name",
+                "VCN/Cert Name",
                 "labTlsVerifyPeerCertByName");  
 
             txtRealityPublicKey = CreateRealityTextBox(
@@ -707,8 +707,8 @@ namespace v2rayN.Forms
             // Put the certificate button on its own row directly below Fingerprint.
             // Keep it aligned with the main input controls. The status label
             // sits to its right and remains inside the scrollable panel.
-            btnGetTlsCertificate.Location = new Point(172, 108);
-            labTlsCertificateStatus.Location = new Point(310, 113);
+            btnGetTlsCertificate.Location = new Point(172, 106);
+            labTlsCertificateStatus.Location = new Point(310, 111);
 
             // The original panTlsMore is 131px high.
             // Its last original control (ALPN) ends around y=33.
