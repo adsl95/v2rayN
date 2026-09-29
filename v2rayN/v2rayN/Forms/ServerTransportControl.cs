@@ -707,8 +707,8 @@ namespace v2rayN.Forms
             // Put the certificate button on its own row directly below Fingerprint.
             // Keep it aligned with the main input controls. The status label
             // sits to its right and remains inside the scrollable panel.
-            btnGetTlsCertificate.Location = new Point(172, 76);
-            labTlsCertificateStatus.Location = new Point(312, 81);
+            btnGetTlsCertificate.Location = new Point(172, 78);
+            labTlsCertificateStatus.Location = new Point(310, 83);
 
             // The original panTlsMore is 131px high.
             // Its last original control (ALPN) ends around y=33.
@@ -716,8 +716,8 @@ namespace v2rayN.Forms
             // of guessing from the current/previous layout.
             const int labelLeft = 16;
             const int controlLeft = 172;
-            const int row1Top = 131;
-            const int row2Top = 166;
+            const int row1Top = 118;
+            const int row2Top = 153;
 
             labTlsPinnedPeerCertSha256.Location = new Point(labelLeft, row1Top);
             txtTlsPinnedPeerCertSha256.Location = new Point(controlLeft, row1Top - 4);
