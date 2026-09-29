@@ -78,6 +78,7 @@ namespace v2rayN.Forms
 
             gbTransport.Dock = DockStyle.Fill;
             gbTransport.Location = new Point(0, 0);
+            gbTransport.Anchor = AnchorStyles.Top | AnchorStyles.Left;
 
             panTransportScroll.Resize += panTransportScroll_Resize;
         }
@@ -142,23 +143,6 @@ namespace v2rayN.Forms
             txtRealitySpiderX.TabIndex = 52;
             txtRealityMldsa65Verify.TabIndex = 53;
 
-            // Add every runtime-created control to panTlsMore.
-            // Without these Controls.Add calls, the outer scroll area can
-            // become larger while the new controls themselves remain
-            // invisible because they have no parent control.
-            panTlsMore.Controls.Add(labRealityPublicKey);
-            panTlsMore.Controls.Add(txtRealityPublicKey);
-            panTlsMore.Controls.Add(labRealityShortId);
-            panTlsMore.Controls.Add(txtRealityShortId);
-            panTlsMore.Controls.Add(labRealitySpiderX);
-            panTlsMore.Controls.Add(txtRealitySpiderX);
-            panTlsMore.Controls.Add(labRealityMldsa65Verify);
-            panTlsMore.Controls.Add(txtRealityMldsa65Verify);
-            panTlsMore.Controls.Add(labTlsPinnedPeerCertSha256);
-            panTlsMore.Controls.Add(txtTlsPinnedPeerCertSha256);
-            panTlsMore.Controls.Add(labTlsVerifyPeerCertByName);
-            panTlsMore.Controls.Add(txtTlsVerifyPeerCertByName);
-
             labRealityPublicKey.Visible = false;
             labRealityShortId.Visible = false;
             labRealitySpiderX.Visible = false;
@@ -174,6 +158,21 @@ namespace v2rayN.Forms
 
             txtTlsVerifyPeerCertByName = CreateRealityTextBox(
                 "txtTlsVerifyPeerCertByName");
+
+            // All runtime controls must belong to panTlsMore, otherwise
+            // they can have correct coordinates but will not be rendered.
+            panTlsMore.Controls.Add(labRealityPublicKey);
+            panTlsMore.Controls.Add(txtRealityPublicKey);
+            panTlsMore.Controls.Add(labRealityShortId);
+            panTlsMore.Controls.Add(txtRealityShortId);
+            panTlsMore.Controls.Add(labRealitySpiderX);
+            panTlsMore.Controls.Add(txtRealitySpiderX);
+            panTlsMore.Controls.Add(labRealityMldsa65Verify);
+            panTlsMore.Controls.Add(txtRealityMldsa65Verify);
+            panTlsMore.Controls.Add(labTlsPinnedPeerCertSha256);
+            panTlsMore.Controls.Add(txtTlsPinnedPeerCertSha256);
+            panTlsMore.Controls.Add(labTlsVerifyPeerCertByName);
+            panTlsMore.Controls.Add(txtTlsVerifyPeerCertByName);  
         }
 
         private Label CreateRealityLabel(string text, string name)
@@ -369,9 +368,8 @@ namespace v2rayN.Forms
                 vmessItem.mldsa65Verify = txtRealityMldsa65Verify.Text.Trim();
             }
 
-            // PCS/VCN belong to the TLS certificate settings and must be
-            // saved regardless of whether the node is currently displayed
-            // as TLS or Reality.
+            // PCS / VCN belong to the TLS certificate verification settings.
+            // Save them independently of the currently selected security mode.
             vmessItem.pinnedPeerCertSha256 = txtTlsPinnedPeerCertSha256.Text.Trim();
             vmessItem.verifyPeerCertByName = txtTlsVerifyPeerCertByName.Text.Trim();
         }
@@ -625,7 +623,7 @@ namespace v2rayN.Forms
 
             panTransportScroll.AutoScroll = true;
             panTransportScroll.AutoScrollMinSize =
-                new Size(gbTransport.Width, gbTransport.Height);
+                new Size(gbTransport.Right + 1, gbTransport.Bottom + 1);
         }
 
         private void ApplyTlsPinningLayout()
@@ -698,7 +696,8 @@ namespace v2rayN.Forms
             gbTransport.Height = Math.Max(originalGbTransportHeight, panTlsMore.Bottom + 8);
 
             panTransportScroll.AutoScroll = true;
-            panTransportScroll.AutoScrollMinSize = new Size(gbTransport.Width, gbTransport.Height);
+            panTransportScroll.AutoScrollMinSize =
+                new Size(gbTransport.Right + 1, gbTransport.Bottom + 1);
         }
 
         private void RestoreOriginalSecurityLayout()
@@ -744,10 +743,18 @@ namespace v2rayN.Forms
 
         private void panTransportScroll_Resize(object sender, EventArgs e)
         {
-            if (!isBindingServer
-                && cmbStreamSecurity.Text == Global.StreamSecurityReality)
+            if (isBindingServer)
+            {
+                return;
+            }
+
+            if (cmbStreamSecurity.Text == Global.StreamSecurityReality)
             {
                 ApplyRealityLayout();
+            }
+            else if (cmbStreamSecurity.Text == Global.StreamSecurity)
+            {
+                ApplyTlsPinningLayout();
             }
         }
     }
