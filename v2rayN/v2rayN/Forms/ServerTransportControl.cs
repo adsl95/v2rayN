@@ -28,6 +28,8 @@ namespace v2rayN.Forms
         private TextBox txtRealityMldsa65Verify;
         private TextBox txtTlsPinnedPeerCertSha256;
         private TextBox txtTlsVerifyPeerCertByName;
+        private Button btnGetTlsCertificate;
+        private Label labTlsCertificateStatus;
 
         // Binding flag prevents the security panel from being repeatedly
         // rearranged while a node is being loaded.
@@ -172,7 +174,37 @@ namespace v2rayN.Forms
             panTlsMore.Controls.Add(labTlsPinnedPeerCertSha256);
             panTlsMore.Controls.Add(txtTlsPinnedPeerCertSha256);
             panTlsMore.Controls.Add(labTlsVerifyPeerCertByName);
-            panTlsMore.Controls.Add(txtTlsVerifyPeerCertByName);  
+            panTlsMore.Controls.Add(txtTlsVerifyPeerCertByName);
+
+            btnGetTlsCertificate = new Button
+            {
+                Name = "btnGetTlsCertificate",
+                Text = "自动获取证书信息",
+                AutoSize = false,
+                Width = 130,
+                Height = 25,
+                TabIndex = 54
+            };
+            btnGetTlsCertificate.Click += btnGetTlsCertificate_Click;
+
+            labTlsCertificateStatus = new Label
+            {
+                Name = "labTlsCertificateStatus",
+                Text = "状态：尚未获取",
+                AutoSize = true,
+                Font = labSNI.Font,
+                Margin = labSNI.Margin
+            };
+
+            panTlsMore.Controls.Add(btnGetTlsCertificate);
+            panTlsMore.Controls.Add(labTlsCertificateStatus);
+        }
+
+        private void btnGetTlsCertificate_Click(object sender, EventArgs e)
+        {
+            // UI placeholder only. The actual TLS certificate retrieval
+            // will be implemented in the next stage.
+            labTlsCertificateStatus.Text = "状态：获取功能尚未接入";
         }
 
         private Label CreateRealityLabel(string text, string name)
@@ -279,6 +311,7 @@ namespace v2rayN.Forms
                 txtRealityMldsa65Verify.Text = vmessItem.mldsa65Verify;
                 txtTlsPinnedPeerCertSha256.Text = vmessItem.pinnedPeerCertSha256 ?? "";
                 txtTlsVerifyPeerCertByName.Text = vmessItem.verifyPeerCertByName ?? "";
+                labTlsCertificateStatus.Text = "状态：尚未获取";
             }
             finally
             {
@@ -310,6 +343,7 @@ namespace v2rayN.Forms
                 txtRealityMldsa65Verify.Text = "";
                 txtTlsPinnedPeerCertSha256.Text = "";
                 txtTlsVerifyPeerCertByName.Text = "";
+                labTlsCertificateStatus.Text = "状态：尚未获取";
 
                 for (int i = 0; i < clbAlpn.Items.Count; i++)
                 {
@@ -512,6 +546,8 @@ namespace v2rayN.Forms
             txtTlsPinnedPeerCertSha256.Visible = false;
             labTlsVerifyPeerCertByName.Visible = false;
             txtTlsVerifyPeerCertByName.Visible = false;
+            btnGetTlsCertificate.Visible = false;
+            labTlsCertificateStatus.Visible = false;
 
             panTlsMore.SuspendLayout();
 
@@ -665,6 +701,14 @@ namespace v2rayN.Forms
             txtTlsPinnedPeerCertSha256.Show();
             labTlsVerifyPeerCertByName.Show();
             txtTlsVerifyPeerCertByName.Show();
+            btnGetTlsCertificate.Show();
+            labTlsCertificateStatus.Show();
+
+            // Use the empty horizontal space to the right of the Fingerprint
+            // dropdown. This avoids changing the vertical layout or the
+            // already-tested PCS/VCN positions.
+            btnGetTlsCertificate.Location = new Point(370, 89);
+            labTlsCertificateStatus.Location = new Point(510, 94);
 
             // The original panTlsMore is 131px high.
             // Its last original control (ALPN) ends around y=33.
@@ -706,6 +750,8 @@ namespace v2rayN.Forms
             txtTlsPinnedPeerCertSha256.Visible = false;
             labTlsVerifyPeerCertByName.Visible = false;
             txtTlsVerifyPeerCertByName.Visible = false;
+            btnGetTlsCertificate.Visible = false;
+            labTlsCertificateStatus.Visible = false;
             panTlsMore.SuspendLayout();
 
             panTlsMore.Height = originalPanTlsMoreHeight;
